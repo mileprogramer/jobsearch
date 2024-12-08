@@ -4,7 +4,7 @@ What is the point of the web app ?
 # Guest users   
     Table with jobs applied (home page)
     Can apply filters (home page)
-    Can search throught jobs (home page)
+    Can search thought jobs (home page)
 
 # Admin user
     Table with action edit 
