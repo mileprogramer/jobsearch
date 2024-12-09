@@ -2,16 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Enums\JobAppliedEnums;
+use App\Enums\JobAppliedStatusEnums;
 use App\Models\JobApplied;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class JobAppliedFactory extends Factory
 {
     protected $model = JobApplied::class;
+    
     public function definition(): array
     {
-        $jobAppliedStatus = JobAppliedEnums::values();
+        $jobAppliedStatus = JobAppliedStatusEnums::cases();
         return [
             "company_name" => fake()->company,
             "link" => fake()->url(),

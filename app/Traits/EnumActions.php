@@ -2,7 +2,7 @@
 
 namespace App\Traits;
 
-trait EnumToArray
+trait EnumActions
 {
     public static function names(): array
     {
@@ -14,4 +14,14 @@ trait EnumToArray
         return array_column(self::cases(), 'value');
     }
 
+    public static function fromName(string $name) : ?self
+    {
+        foreach (self::cases() as $case) {
+            if ($case->name === $name) {
+                return $case;
+            }
+        }
+
+        return null;
+    }
 }
