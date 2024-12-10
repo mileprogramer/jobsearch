@@ -18,48 +18,20 @@ enum JobAppliedStatusEnums :string
 
     public static function generateBadge(string $statusValue)
     {
-        if($statusValue === self::Applied->value)
-        {
-            return (
-                "<span class='whitespace-nowrap bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300'>$statusValue</span>"
-            );
-        }
-        elseif($statusValue === self::Successfully->value)
-        {
-            return (
-                "<span class='whitespace-nowrap bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300'>$statusValue</span>"
-            );
-        }
-        elseif($statusValue === self::Rejection->value)
-        {
-            return (
-                "<span class='whitespace-nowrap bg-red-500 text-white text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300'>$statusValue</span>"
-            );
-        }
-        elseif($statusValue === self::GenericRejection->value)
-        {
-            return (
-                "<span class='whitespace-nowrap bg-red-800 text-white text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300'>$statusValue</span>"
-            );
-        }
-        elseif($statusValue === self::RejectionByTechnicalInterview->value)
-        {
-            return (
-                "<span class='whitespace-nowrap bg-red-500 text-white text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300'>$statusValue</span>"
-            );
-        }
-        elseif($statusValue === self::RejectionByHR->value)
-        {
-            return (
-                "<span class='whitespace-nowrap bg-red-500 text-white text-sm font-medium me-2 px-3.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300'>$statusValue</span>"
-            );
-        }
-        elseif($statusValue === self::SelectedAnotherDev->value)
-        {
-            return (
-                "<span class='whitespace-nowrap bg-red-500 text-white text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300'>$statusValue</span>"
-            );
-        }
+        $statusClasses = [
+            self::Applied->value => "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300",
+            self::Successfully->value => "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300",
+            self::Rejection->value => "bg-red-500 text-white dark:bg-red-900 dark:text-red-300",
+            self::GenericRejection->value => "bg-red-800 text-white dark:bg-red-900 dark:text-red-300",
+            self::RejectionByTechnicalInterview->value => "bg-red-500 text-white dark:bg-red-900 dark:text-red-300",
+            self::RejectionByHR->value => "bg-red-500 text-white dark:bg-red-900 dark:text-red-300 px-3.5", // Added extra padding for this case
+            self::SelectedAnotherDev->value => "bg-red-500 text-white dark:bg-red-900 dark:text-red-300",
+        ];
+
+        $defaultClasses = "whitespace-nowrap text-sm font-medium me-2 px-2.5 py-0.5 rounded";
+        $classes = $statusClasses[$statusValue] ?? '';
+
+        return "<span class='$defaultClasses $classes'>$statusValue</span>";
     }
 
 }

@@ -17,43 +17,19 @@
     </head>
     <body class="font-sans antialiased dark:bg-black dark:text-white/50 bg-red-200">
         <div class="max-w-7xl mx-auto py-2.5">
-            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                        <tr>
-                            <th scope="col" class="px-6 py-3">
-                                Company name
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Link to the job
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Status
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Summary
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Created at
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($jobsApplied as $jobApplied)
-                        <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                            <td class="px-6 py-4">{{ $jobApplied->company_name }}</td>
-                            <td class="px-6 py-4">{{ $jobApplied->link }}</td>
-                            <td class="px-6 py-4">{!! \App\Enums\JobAppliedStatusEnums::generateBadge($jobApplied->status) !!}</td>
-                            <td class="px-6 py-4">{{ $jobApplied->summary }}</td>
-                            <td class="px-6 py-4">{{ $jobApplied->created_at }}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                <div class="px-6 py-3 bg-white">
-                    {{ $jobsApplied->links() }}
+            <div class="px-6 py-3">
+                <div class="ml-auto">
+                    <x-filter-jobs-applied :jobsAppliedEnumsStatus='$jobsAppliedEnumsStatus' />
+                </div>
+                <div class="mt-2">
+                    @if (isset($searchTerm))
+                        <x-search-form :searchTerm=$searchTerm/>
+                    @else
+                        <x-search-form/>
+                    @endif
                 </div>
             </div>
+            <x-table-jobs-applied :jobsApplied="$jobsApplied"/>
         </div>
     </body>
 </html>

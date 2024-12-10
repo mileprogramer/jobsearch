@@ -28,7 +28,7 @@ class JobApplied extends Model
 
     public function scopeSearchByCompanyName(Builder $query, string $companyName) :Builder
     {
-        return $query->where("company_name", $companyName);
+        return $query->where("company_name", 'LIKE' ,"%$companyName%");
     }
 
 }

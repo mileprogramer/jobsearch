@@ -3,8 +3,8 @@ What is the point of the web app ?
     and tomo and other devs can see do i made some mistake
 # Guest users   
     Table with jobs applied (home page) ✅
-    Can apply filters (home page) ✅
-    Can search thought jobs (home page) ✅
+    Can apply filters (home page) ✅ add to the UI
+    Can search thought jobs (home page) ✅ add to the UI
 
 # Admin user
     Table with action edit 
