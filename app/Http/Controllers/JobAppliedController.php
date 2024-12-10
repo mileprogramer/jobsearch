@@ -31,4 +31,18 @@ class JobAppliedController extends Controller
             "jobsAppliedEnumsStatus" => $jobsAppliedEnumsStatus
         ]);
     }
+
+    public function filter(Request $request)
+    {
+        if(!$request->query("job_status") || array_key_exists($request->query("job_status"), JobAppliedStatusEnums::values()))
+            abort(404);
+
+        $jobsAppliedEnumsStatus = JobAppliedStatusEnums::cases();
+        $filterJobsApplied = JobApplied::filterByStatus(JobAppliedStatusEnums::fromValue($request->query    ("job_status")))->paginate();
+        return view("home", [
+            "selectedFilter" => $request->query("job_status"),
+            "jobsApplied" => $filterJobsApplied,
+            "jobsAppliedEnumsStatus" => $jobsAppliedEnumsStatus
+        ]);
+    }
 }

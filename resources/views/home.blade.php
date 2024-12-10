@@ -19,7 +19,14 @@
         <div class="max-w-7xl mx-auto py-2.5">
             <div class="px-6 py-3">
                 <div class="ml-auto">
-                    <x-filter-jobs-applied :jobsAppliedEnumsStatus='$jobsAppliedEnumsStatus' />
+                    @if (isset($selectedFilter))
+                        <x-filter-jobs-applied
+                            :selectedFilter='$selectedFilter'
+                            :jobsAppliedEnumsStatus='$jobsAppliedEnumsStatus'
+                        />
+                    @else
+                        <x-filter-jobs-applied :jobsAppliedEnumsStatus='$jobsAppliedEnumsStatus' />
+                    @endif
                 </div>
                 <div class="mt-2">
                     @if (isset($searchTerm))

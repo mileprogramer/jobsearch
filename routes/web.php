@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [JobAppliedController::class, "index"]);
 Route::get('/search', [JobAppliedController::class, "search"]);
+Route::get('/filter', [JobAppliedController::class, "filter"]);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
