@@ -6,6 +6,12 @@
     </x-slot>
 
     <div class="py-12">
-        {{-- table --}}
+        @if (session("addedNewJobMsg"))
+            <x-successfully-alert :msg="session('addedNewJobMsg')" />
+
+        @endif
+        <h1 class="text-center mb-3 text-3xl">Add new job applied</h1>
+        <x-danger-alert/>
+        <x-add-job-applied/>
     </div>
 </x-app-layout>

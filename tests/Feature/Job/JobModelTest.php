@@ -28,3 +28,15 @@ test('can search jobs applied by company name', function () {
     expect($searchJobsApplied->company_name)->toBe($companyName);
 
 });
+
+test('can add new job applied', function () {
+    // arrange
+    $data = [
+        "company_name" => "Firma",
+        "link" => "https://nemanja-milic.rs",
+    ];
+    JobApplied::create($data);
+    $jobApplied = JobApplied::searchByCompanyName($data["company_name"])->first();
+    expect($jobApplied->company_name)->toBe($data["company_name"]);
+    expect($jobApplied->link)->toBe($data["link"]);
+});

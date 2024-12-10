@@ -10,7 +10,7 @@ What is the point of the web app ?
     Table with action edit 
         I can change the status of the job applied 
         And after i add the mark generic rejection, or rejection that no more edit possible
-    Add new job applied 
+    Add new job applied / pass the test i have to do UI implementation
 
 ### Entity
     Job {

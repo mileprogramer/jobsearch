@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\JobAppliedStatusEnums;
+use App\Http\Requests\AddNewJobAppliedRequest;
 use App\Models\JobApplied;
 use Illuminate\Http\Request;
 
@@ -45,4 +46,18 @@ class JobAppliedController extends Controller
             "jobsAppliedEnumsStatus" => $jobsAppliedEnumsStatus
         ]);
     }
+
+    public function store(AddNewJobAppliedRequest $request)
+    {
+        $data = $request->validated();
+        JobApplied::create($data);
+
+        return redirect()->route('dashboard')->with('addedNewJobMsg', 'Successfully added new job applied');
+    }
+
+    public function dashboard()
+    {
+        return view("dashboard");
+    }
+
 }

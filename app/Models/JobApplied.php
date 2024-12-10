@@ -14,6 +14,11 @@ class JobApplied extends Model
 
     protected $table = "job_applied";
 
+    protected $fillable = [
+        "company_name",
+        "link"
+    ];
+
     protected function casts(): array
     {
         return [

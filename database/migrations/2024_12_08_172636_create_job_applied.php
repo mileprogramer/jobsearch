@@ -1,5 +1,7 @@
 <?php
 
+use App\Casts\JobAppliedStatusCast;
+use App\Enums\JobAppliedStatusEnums;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,8 +14,8 @@ return new class extends Migration
             $table->id();
             $table->string("company_name");
             $table->string("link");
-            $table->text("summary");
-            $table->text("status");
+            $table->text("summary")->nullable();
+            $table->text("status")->default(JobAppliedStatusEnums::Applied->name);
             $table->timestamps();
         });
     }
