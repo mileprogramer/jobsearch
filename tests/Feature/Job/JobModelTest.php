@@ -40,3 +40,15 @@ test('can add new job applied', function () {
     expect($jobApplied->company_name)->toBe($data["company_name"]);
     expect($jobApplied->link)->toBe($data["link"]);
 });
+
+test('can edit the job status applied', function () {
+    // arrange
+    $jobApplied = JobApplied::factory()->create();
+    // act
+    $jobApplied->status = JobAppliedStatusEnums::ShouldHaveHrInterview;
+    $jobApplied->save();
+    // expect
+    $jobAppliedSaved = JobApplied::where("id", $jobApplied->id)->first();
+    expect($jobApplied->status->value)->toBe(JobAppliedStatusEnums::fromValue($jobAppliedSaved->status)->value);
+});
+

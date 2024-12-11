@@ -9,6 +9,10 @@ enum JobAppliedStatusEnums :string
     use EnumActions;
 
     case Applied = "Applied";
+    case ShouldHaveTechnicalInterview = "I should have technical interview";
+    case HadTechnicalInterview = "I had technical interview";
+    case ShouldHaveHrInterview = "I should have HR interview";
+    case HadHrInterview = "I had HR interview";
     case Successfully = "Successfully";
     case Rejection = "Rejection";
     case GenericRejection = "Generic rejection";

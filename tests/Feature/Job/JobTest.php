@@ -6,6 +6,7 @@ use App\Enums\JobAppliedStatusEnums;
 use App\Models\JobApplied;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Auth;
 
 uses(RefreshDatabase::class);
 
@@ -31,20 +32,15 @@ test('admin user can add new job applied', function () {
     $response = $this
         ->actingAs($adminUser)
         ->post('/add-job-applied', $data);
-        
-    $response->assertStatus(200);
+
+    $response->assertStatus(302);
     $this->assertDatabaseHas('job_applied', $data);
 });
 
+// test("edit job applied status", function () {
 
-// test("edit job applied status", function(){
-//     // arrange
-//     $jobApplied = JobApplied::factory()->count(1)->create();
-//     // act
-//     $jobApplied->status;
-
-//     // assert
 // });
+
 
 // test("edit job applied summary", function(){
 //     // arrange

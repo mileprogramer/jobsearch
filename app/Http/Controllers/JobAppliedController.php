@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\JobAppliedStatusEnums;
 use App\Http\Requests\AddNewJobAppliedRequest;
+use App\Http\Requests\UpdateJobAppliedStatus;
 use App\Models\JobApplied;
 use Illuminate\Http\Request;
 
@@ -52,12 +53,28 @@ class JobAppliedController extends Controller
         $data = $request->validated();
         JobApplied::create($data);
 
-        return redirect()->route('dashboard')->with('addedNewJobMsg', 'Successfully added new job applied');
+        return redirect()->route('dashboard')->with('addedNewJobMsg', 'Successfully added new job applied', "activeCurrentTab", "addNewJob");
+    }
+
+    public function editStatus(JobApplied $jobApplied, UpdateJobAppliedStatus $request)
+    {
+        $data = $request->validated();
+        $jobApplied->status = JobAppliedStatusEnums::fromValue($data['job_applied_status']);
+        $jobApplied->save();
+
+        return redirect()->route('dashboard')
+            ->with('updateJobAppliedStatus', 'Successfully updated job applied status')
+            ->with('activeCurrentTab', 'editJobs');
     }
 
     public function dashboard()
     {
-        return view("dashboard");
+        $jobsApplied = JobApplied::paginate();
+        $jobsAppliedEnumsStatus = JobAppliedStatusEnums::cases();
+        return view("dashboard", [
+            "jobsApplied" => $jobsApplied,
+            "jobsAppliedEnumsStatus" => $jobsAppliedEnumsStatus
+        ]);
     }
 
 }
