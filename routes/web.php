@@ -13,6 +13,8 @@ Route::controller(JobAppliedController::class)->group(function () {
 Route::middleware(['auth', 'verified'])->controller(JobAppliedController::class)->group(function () {
     Route::post('/add-job-applied', 'store');
     Route::post('/edit-job-applied-status/{jobApplied}', 'editStatus');
+    Route::post("/edit-job-applied/{jobApplied}", "edit");
+    Route::get("/dashboard/edit-job-applied/{jobApplied}", "update");
 });
 
 Route::get('/dashboard', [JobAppliedController::class, 'dashboard'])

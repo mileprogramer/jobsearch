@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Enums\JobAppliedStatusEnums;
 use App\Http\Requests\AddNewJobAppliedRequest;
+use App\Http\Requests\EditJobAppliedRequest;
 use App\Http\Requests\UpdateJobAppliedStatus;
 use App\Models\JobApplied;
 use Illuminate\Http\Request;
+
+use function PHPUnit\Framework\isEmpty;
 
 class JobAppliedController extends Controller
 {
@@ -65,6 +68,39 @@ class JobAppliedController extends Controller
         return redirect()->route('dashboard')
             ->with('updateJobAppliedStatus', 'Successfully updated job applied status')
             ->with('activeCurrentTab', 'editJobs');
+    }
+
+    public function update(JobApplied $jobApplied, )
+    {
+        if(!$jobApplied)
+            abort(404);
+
+        $jobsAppliedEnumsStatus = JobAppliedStatusEnums::cases();
+
+        return view("edit-job-applied", compact("jobApplied", "jobsAppliedEnumsStatus"));
+    }
+
+    public function edit(JobApplied $jobApplied, EditJobAppliedRequest $request)
+    {
+        try {
+            $data = $request->validated();
+
+            $jobApplied->update([
+                "status" => JobAppliedStatusEnums::fromValue($data["job_applied_status"]),
+                "link" => $data["link"],
+                "summary" => $data["summary"] ?? null,
+                "company_name" => $data["company_name"],
+            ]);
+
+            return redirect()->route("dashboard")
+                ->with('updateJobAppliedStatus', 'Successfully updated job applied status')
+                ->with('activeCurrentTab', 'editJobs');
+        } catch (\Exception $e) {
+            // Handle failure and go back to the previous page
+            return redirect()->back()
+                ->withInput($request->all()) // Preserve input data
+                ->withErrors(['error' => "Failed to update job applied. Please try again. <br>$e"]);
+        }
     }
 
     public function dashboard()

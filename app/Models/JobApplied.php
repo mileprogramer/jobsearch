@@ -16,7 +16,9 @@ class JobApplied extends Model
 
     protected $fillable = [
         "company_name",
-        "link"
+        "link",
+        "summary",
+        "status",
     ];
 
     protected function casts(): array

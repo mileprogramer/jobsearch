@@ -19,36 +19,43 @@
                 <th scope="col" class="px-6 py-3">
                     Created at
                 </th>
+                <th scope="col" class="px-6 py-3">
+                    Action
+                </th>
             </tr>
         </thead>
         <tbody>
             @foreach ($jobsApplied as $jobApplied)
             <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                 <td class="px-6 py-4">{{ $jobApplied->company_name }}</td>
-                <td class="px-6 py-4">{{ $jobApplied->link }}</td>
+                <td class="px-6 py-4 break-all">
+                    <a
+                        class="text-blue-700"
+                        href={{ $jobApplied->link }}
+                        target="blank"
+                    >
+                        {{ $jobApplied->link }}
+                    </a>
+                </td>
                 <td class="px-6 py-4">
                     <form x-data="{ status: '{{ $jobApplied->job_applied_status }}' }" method="POST" action="/edit-job-applied-status/{{ $jobApplied->id }}">
                         @csrf
-                        <select
-                            name="job_applied_status"
-                            onchange="this.form.submit()"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            required>
-                            @foreach ($jobsAppliedEnumsStatus as $enum)
-                                <option
-                                    value="{{$enum->value}}"
-                                    @if ($jobApplied->status === $enum->value)
-                                        selected
-                                    @endif
-                                >
-                                    {{$enum->value}}
-                                </option>
-                            @endforeach
-                        </select>
+                        <x-edit-job-applied-status
+                            :jobApplied="$jobApplied"
+                            onChange=true
+                            :jobsAppliedEnumsStatus="$jobsAppliedEnumsStatus"
+                        />
                     </form>
                 </td>
-                <td class="px-6 py-4">{{ $jobApplied->summary }}</td>
+                <td class="px-6 py-4 break-all">{{ $jobApplied->summary }}</td>
                 <td class="px-6 py-4 whitespace-nowrap">{{ $jobApplied->created_at }}</td>
+                <td class="px-6 py-4">
+                    <a
+                        href={{"/dashboard/edit-job-applied/".$jobApplied->id}}
+                        class="focus:outline-none text-black bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">
+                        Edit
+                    </a>
+                </td>
             </tr>
             @endforeach
         </tbody>

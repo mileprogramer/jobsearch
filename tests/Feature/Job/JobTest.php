@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Casts\JobAppliedStatusCast;
 use App\Enums\JobAppliedStatusEnums;
 use App\Models\JobApplied;
 use App\Models\User;
@@ -37,20 +38,35 @@ test('admin user can add new job applied', function () {
     $this->assertDatabaseHas('job_applied', $data);
 });
 
-// test("edit job applied status", function () {
+test("edit job applied status", function () {
 
-// });
+    $adminUser = User::factory()->create();
+    $jobApplied = JobApplied::factory()->create();
+    $data = [
+        "job_applied_status" => JobAppliedStatusEnums::Rejection->value
+    ];
 
+    // Act
+    $response = $this
+        ->actingAs($adminUser)
+        ->post('/edit-job-applied-status/'.$jobApplied->id , $data);
+
+    $response->assertStatus(302);
+    expect(JobApplied::where("id", $jobApplied->id)->first()->status)
+        ->toBe(JobAppliedStatusEnums::Rejection->value);
+});
 
 // test("edit job applied summary", function(){
-//     // arrange
-//     JobApplied::factory()->count(30)->create();
-//     // act
-//     $response = $this->get("/");
-//     // assert
-//     $response->assertViewHas('jobsApplied', function ($jobsApplied) {
-//         return $jobsApplied->count() === 15;
-//     });
+
+//     // visit the dashboard
+//     // click on the button with text edit summary
+//     // modal must show
+//     // modal must have the input with the name summary
+//     // on the button press i have to edit the summary
+
+//     $adminUser = User::factory()->create();
+//     $jobApplied = JobApplied::factory()->create();
+
 // });
 
 // test("try to edit something else except summary and status", function(){
