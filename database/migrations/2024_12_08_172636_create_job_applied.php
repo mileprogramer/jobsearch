@@ -13,7 +13,7 @@ return new class extends Migration
         Schema::create('job_applied', function (Blueprint $table) {
             $table->id();
             $table->string("company_name");
-            $table->string("link");
+            $table->text("link");
             $table->text("summary")->nullable();
             $table->string("status")->default(JobAppliedStatusEnums::Applied->name);
             $table->timestamps();
