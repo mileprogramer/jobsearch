@@ -15,7 +15,7 @@ class JobAppliedController extends Controller
 {
     public function index()
     {
-        $jobsApplied = JobApplied::paginate();
+        $jobsApplied = JobApplied::orderByDesc("created_at")->paginate();
         $jobsAppliedEnumsStatus = JobAppliedStatusEnums::cases();
         return view("home", [
             "jobsApplied" => $jobsApplied,
