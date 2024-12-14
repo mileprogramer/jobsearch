@@ -19,7 +19,7 @@ class EditJobAppliedRequest extends FormRequest
             $ruleForTheJobStatus,
             $rulesForLinkAndCompanyName,
             [
-                "summary" => ["string", "min:10", "max:1000"],
+                "summary" => ["nullable", "string", "min:10", "max:1000"],
             ]
         );
     }

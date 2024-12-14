@@ -93,7 +93,6 @@ class JobAppliedController extends Controller
             ]);
 
             return redirect()->route("dashboard")
-                ->with('updateJobAppliedStatus', 'Successfully updated job applied status')
                 ->with('activeCurrentTab', 'editJobs');
         } catch (\Exception $e) {
             // Handle failure and go back to the previous page
@@ -105,7 +104,7 @@ class JobAppliedController extends Controller
 
     public function dashboard()
     {
-        $jobsApplied = JobApplied::paginate();
+        $jobsApplied = JobApplied::orderByDesc("created_at")->paginate();
         $jobsAppliedEnumsStatus = JobAppliedStatusEnums::cases();
         return view("dashboard", [
             "jobsApplied" => $jobsApplied,
