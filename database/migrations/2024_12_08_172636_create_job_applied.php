@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string("company_name");
             $table->string("link");
             $table->text("summary")->nullable();
-            $table->text("status")->default(JobAppliedStatusEnums::Applied->name);
+            $table->string("status")->default(JobAppliedStatusEnums::Applied->name);
             $table->timestamps();
         });
     }
